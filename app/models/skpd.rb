@@ -1,0 +1,3 @@
+class Skpd < ApplicationRecord
+	
+end

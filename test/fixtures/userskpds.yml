@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  skpd: one
+  jabatan: MyString
+  status: 1
+
+two:
+  user: two
+  skpd: two
+  jabatan: MyString
+  status: 1

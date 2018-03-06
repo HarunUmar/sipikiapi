@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  kategori: one
+  isi: MyString
+  lat: MyString
+  lng: MyString
+  status: 1
+
+two:
+  user: two
+  kategori: two
+  isi: MyString
+  lat: MyString
+  lng: MyString
+  status: 1

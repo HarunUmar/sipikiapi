@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pengaduan: one
+  userskpd: one
+  status: 1
+  dikerjakan: 1
+  url: MyString
+
+two:
+  pengaduan: two
+  userskpd: two
+  status: 1
+  dikerjakan: 1
+  url: MyString

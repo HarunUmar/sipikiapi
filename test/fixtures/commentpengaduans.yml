@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pengaduan: one
+  user: one
+  isi: MyString
+  sub: 1
+
+two:
+  pengaduan: two
+  user: two
+  isi: MyString
+  sub: 1
