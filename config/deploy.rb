@@ -2,7 +2,7 @@
 lock "~> 3.10.1"
 
 set :application, "onebitapi"
-set :repo_url, "https//github.com/HarunUmar/onebitapi.git"
+set :repo_url, "https://github.com/HarunUmar/onebitapi.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -46,13 +46,15 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :touch, release_path.join('tmp/restart.txt')
+  namespace :assets do
+    task :precompile do
+      on roles(fetch(:assets_roles)) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, "assets:precompile RAILS_ENV=production"
+          end
+        end
+      end
     end
   end
-
-  after :publishing, 'deploy:restart'
-  after :finishing, 'deploy:cleanup'
 end
