@@ -46,15 +46,13 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 namespace :deploy do
 
-  namespace :assets do
-    task :precompile do
-      on roles(fetch(:assets_roles)) do
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            execute :rake, "assets:precompile RAILS_ENV=production"
-          end
-        end
-      end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
+
+  after :publishing, 'deploy:restart'
+  after :finishing, 'deploy:cleanup'
 end
