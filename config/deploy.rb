@@ -3,6 +3,7 @@ lock "~> 3.10.1"
 
 set :application, "onebitapi"
 set :repo_url, "https://github.com/HarunUmar/onebitapi.git"
+set :passenger_restart_with_touch, true
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

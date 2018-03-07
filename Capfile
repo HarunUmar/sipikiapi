@@ -20,9 +20,7 @@ set :rbenv_ruby, '2.5.0'
 
 require 'capistrano/bundler'
 require "capistrano/rails/migrations"	
-
 require "capistrano/passenger"
-
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
