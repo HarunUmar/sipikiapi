@@ -6,7 +6,7 @@ class CreateTindaklanjuts < ActiveRecord::Migration[5.1]
       t.column :status, :integer, default: 1
       t.column :dikerjakan, :integer, default: 0
       t.string :url
-
+      
       t.timestamps
     end
   end

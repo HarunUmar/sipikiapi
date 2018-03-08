@@ -7,6 +7,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.string :warna_tulisan
       t.string :lat
       t.string :lng
+      t.integer :jenis, :integer, default: 0
       t.timestamps
     end
   end

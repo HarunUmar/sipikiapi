@@ -1,7 +1,7 @@
-class UsersController < ApplicationController
+class Users::UsersController < ApplicationController
 
 	def index
-		@user = User.all
+		@user = User.offset(params[:offset]).limit(params[:limit]).order(created_at: :desc)
 		render json: @user
 	end
 
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
  	    if @user.save
   			render json: {'success' =>1, 'message' => 'data berhasil disimpan'},status: :ok
   		else 
-  			render json: {'success' =>0, 'message' => 'data gagal disimpan'},status: :ok
+  			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
   		end
 
 	end
