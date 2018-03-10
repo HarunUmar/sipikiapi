@@ -1,13 +1,8 @@
 class Checkpoints::CheckpointsController < ApplicationController
 
-
-
 	def index
-		@point = Post.select(:user_id,:isi,:lat,:lng).distinct.pluck(:isi)
-		render json: @point
+		@point = User.group(:id)
+		render json: @point , adduser: true
 	end
-
-
-	
 
 end

@@ -1,7 +1,6 @@
 
 class Posts::CommentpostsController < ApplicationController
 
-
 	def create
     	@comment = Commentpost.new(comment_params)
  	    if @comment.save

@@ -3,7 +3,7 @@ class Posts::PostsController < ApplicationController
 
 	def index
 		@post = Post.offset(params[:offset]).limit(params[:limit]).order(created_at: :desc)
-		render json: @post
+		render json: @post, adduser: true, addcommentpost: true
 	end
 
 	def create

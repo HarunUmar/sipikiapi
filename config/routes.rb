@@ -10,6 +10,7 @@ Rails.application.routes.draw do
  	get 'posts/find/:id', to: 'posts#find'
  	get 'posts/search/:nama', to: 'posts#search'
  	post 'comment', to: 'commentposts#create'
+ 	post 'lovepost', to: 'loveposts#create'
  end
 
  namespace :users do 
@@ -21,5 +22,6 @@ Rails.application.routes.draw do
  namespace	:checkpoints do
 	 get '/', to: 'checkpoints#index'
  end
+
 
 end
