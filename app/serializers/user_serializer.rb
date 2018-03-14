@@ -4,6 +4,5 @@ class UserSerializer < ActiveModel::Serializer
 
   def posts
   	object.posts.limit(1).order(id: :desc)
-
   end
 end

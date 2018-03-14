@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304150834) do
+ActiveRecord::Schema.define(version: 20180310090226) do
 
   create_table "commentpengaduans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "pengaduan_id"
@@ -54,6 +54,10 @@ ActiveRecord::Schema.define(version: 20180304150834) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["post_id"], name: "index_gambarposts_on_post_id"
   end
 
