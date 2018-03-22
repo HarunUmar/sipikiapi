@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spd: MyString
+  instansi: one
+  alamat: MyText
+  no_tlp: MyString
+  status: 1
+
+two:
+  spd: MyString
+  instansi: two
+  alamat: MyText
+  no_tlp: MyString
+  status: 1

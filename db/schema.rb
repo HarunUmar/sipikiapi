@@ -10,170 +10,137 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310090226) do
+ActiveRecord::Schema.define(version: 20180319024638) do
 
-  create_table "commentpengaduans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "pengaduan_id"
+  create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "provinsi_id"
+    t.string "city"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provinsi_id"], name: "index_cities_on_provinsi_id"
+  end
+
+  create_table "disposisi_balasans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
+    t.bigint "disposisi_id"
+    t.text "isi"
+    t.text "ket"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disposisi_id"], name: "index_disposisi_balasans_on_disposisi_id"
+    t.index ["user_id"], name: "index_disposisi_balasans_on_user_id"
+  end
+
+  create_table "disposisis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "kinerja_id"
+    t.string "judul"
     t.string "isi"
-    t.integer "sub"
+    t.text "ket"
+    t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pengaduan_id"], name: "index_commentpengaduans_on_pengaduan_id"
-    t.index ["user_id"], name: "index_commentpengaduans_on_user_id"
+    t.index ["kinerja_id"], name: "index_disposisis_on_kinerja_id"
+    t.index ["user_id"], name: "index_disposisis_on_user_id"
   end
 
-  create_table "commentposts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "post_id"
-    t.string "isi"
+  create_table "eselons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "eselon"
+    t.text "ket"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_commentposts_on_post_id"
-    t.index ["user_id"], name: "index_commentposts_on_user_id"
   end
 
-  create_table "emeis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.string "emei"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_emeis_on_user_id"
-  end
-
-  create_table "gambarpengaduans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "pengaduan_id"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pengaduan_id"], name: "index_gambarpengaduans_on_pengaduan_id"
-  end
-
-  create_table "gambarposts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "post_id"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.index ["post_id"], name: "index_gambarposts_on_post_id"
-  end
-
-  create_table "kategoris", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "kategori"
-    t.string "url_icon"
+  create_table "instansis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "instansi"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "likepengaduans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "pengaduan_id"
+  create_table "jabatans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "jabatan"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kinerjas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "skp_id"
+    t.string "kinerja"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skp_id"], name: "index_kinerjas_on_skp_id"
+  end
+
+  create_table "provinsis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "provinsi"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "skp"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "spd"
+    t.bigint "instansi_id"
+    t.text "alamat"
+    t.string "no_tlp"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instansi_id"], name: "index_spds_on_instansi_id"
+  end
+
+  create_table "user_disposisis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
+    t.bigint "disposisi_id"
+    t.integer "status"
+    t.string "nilai"
+    t.datetime "waktu"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pengaduan_id"], name: "index_likepengaduans_on_pengaduan_id"
-    t.index ["user_id"], name: "index_likepengaduans_on_user_id"
-  end
-
-  create_table "loveposts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_loveposts_on_post_id"
-    t.index ["user_id"], name: "index_loveposts_on_user_id"
-  end
-
-  create_table "pengaduans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "kategori_id"
-    t.string "isi"
-    t.string "lat"
-    t.string "lng"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["kategori_id"], name: "index_pengaduans_on_kategori_id"
-    t.index ["user_id"], name: "index_pengaduans_on_user_id"
-  end
-
-  create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.string "isi"
-    t.integer "blokir", default: 1
-    t.string "warna_tulisan"
-    t.string "lat"
-    t.string "lng"
-    t.integer "jenis", default: 0
-    t.integer "integer", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
-  create_table "skpds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "skpd"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tindaklanjuts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "pengaduan_id"
-    t.bigint "userskpd_id"
-    t.integer "status", default: 1
-    t.integer "dikerjakan", default: 0
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pengaduan_id"], name: "index_tindaklanjuts_on_pengaduan_id"
-    t.index ["userskpd_id"], name: "index_tindaklanjuts_on_userskpd_id"
+    t.index ["disposisi_id"], name: "index_user_disposisis_on_disposisi_id"
+    t.index ["user_id"], name: "index_user_disposisis_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "no_ktp"
+    t.bigint "spd_id"
+    t.bigint "jabatan_id"
+    t.bigint "eselon_id"
+    t.bigint "city_id"
+    t.string "fb"
+    t.string "token"
     t.string "nama"
     t.string "hp"
-    t.string "url_foto"
-    t.string "username"
-    t.string "id_fb"
-    t.string "token_fb"
-    t.integer "skpd", default: 1
-    t.integer "status", default: 1
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_users_on_city_id"
+    t.index ["eselon_id"], name: "index_users_on_eselon_id"
+    t.index ["jabatan_id"], name: "index_users_on_jabatan_id"
+    t.index ["spd_id"], name: "index_users_on_spd_id"
   end
 
-  create_table "userskpds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
-    t.bigint "skpd_id"
-    t.string "jabatan", default: "staf"
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["skpd_id"], name: "index_userskpds_on_skpd_id"
-    t.index ["user_id"], name: "index_userskpds_on_user_id"
-  end
-
-  add_foreign_key "commentpengaduans", "pengaduans"
-  add_foreign_key "commentpengaduans", "users"
-  add_foreign_key "commentposts", "posts"
-  add_foreign_key "commentposts", "users"
-  add_foreign_key "emeis", "users"
-  add_foreign_key "gambarpengaduans", "pengaduans"
-  add_foreign_key "gambarposts", "posts"
-  add_foreign_key "likepengaduans", "pengaduans"
-  add_foreign_key "likepengaduans", "users"
-  add_foreign_key "loveposts", "posts"
-  add_foreign_key "loveposts", "users"
-  add_foreign_key "pengaduans", "kategoris"
-  add_foreign_key "pengaduans", "users"
-  add_foreign_key "posts", "users"
-  add_foreign_key "tindaklanjuts", "pengaduans"
-  add_foreign_key "tindaklanjuts", "userskpds"
-  add_foreign_key "userskpds", "skpds"
-  add_foreign_key "userskpds", "users"
+  add_foreign_key "cities", "provinsis"
+  add_foreign_key "disposisi_balasans", "disposisis"
+  add_foreign_key "disposisi_balasans", "users"
+  add_foreign_key "disposisis", "kinerjas"
+  add_foreign_key "disposisis", "users"
+  add_foreign_key "kinerjas", "skps"
+  add_foreign_key "spds", "instansis"
+  add_foreign_key "user_disposisis", "disposisis"
+  add_foreign_key "user_disposisis", "users"
+  add_foreign_key "users", "cities"
+  add_foreign_key "users", "eselons"
+  add_foreign_key "users", "jabatans"
+  add_foreign_key "users", "spds"
 end

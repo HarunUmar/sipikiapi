@@ -1,0 +1,2 @@
+class Skp < ApplicationRecord
+end

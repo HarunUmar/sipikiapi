@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provinsi: one
+  kota: MyString
+  status: 1
+
+two:
+  provinsi: two
+  kota: MyString
+  status: 1

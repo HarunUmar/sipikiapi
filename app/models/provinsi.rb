@@ -1,0 +1,2 @@
+class Provinsi < ApplicationRecord
+end

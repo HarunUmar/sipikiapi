@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  disposisi: one
+  status: 1
+  nilai: MyString
+  waktu: 2018-03-19 10:44:21
+
+two:
+  user: two
+  disposisi: two
+  status: 1
+  nilai: MyString
+  waktu: 2018-03-19 10:44:21

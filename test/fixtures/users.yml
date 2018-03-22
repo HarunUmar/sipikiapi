@@ -1,37 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  ktp: MyString
-  : MyString
+  spd: one
+  jabatan: one
+  eselon: one
+  city: one
+  fb: MyString
+  token: MyString
   nama: MyString
-  : MyString
   hp: MyString
-  : MyString
-  url_foto: MyString
-  : MyString
-  username: MyString
-  : MyString
-  id_fb: MyString
-  : MyString
-  skpd: MyString
-  : 1
-  status: MyString
-  : 1
+  status: 1
 
 two:
-  ktp: MyString
-  : MyString
+  spd: two
+  jabatan: two
+  eselon: two
+  city: two
+  fb: MyString
+  token: MyString
   nama: MyString
-  : MyString
   hp: MyString
-  : MyString
-  url_foto: MyString
-  : MyString
-  username: MyString
-  : MyString
-  id_fb: MyString
-  : MyString
-  skpd: MyString
-  : 1
-  status: MyString
-  : 1
+  status: 1

@@ -19,3 +19,12 @@ olan  = User.where(name: Faker::Name.name).create
 end
 
 =end
+
+
+#Instansi.create([{instansi:'Sekertariat'}, {instansi: 'Bagian'}, {instansi:'Badan'}])
+#
+
+#Provinsi.create([provinsi: 'Sulawesi Utara'])
+#City.create([provinsi_id: 1, city: 'Bitung'])
+#Skp.create([skp: 'Disiplin'])
+Kinerja.create([kinerja: 'Disposisi'])

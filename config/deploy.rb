@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.10.1"
 
-set :application, "onebitapi"
-set :repo_url, "https://github.com/HarunUmar/onebitapi.git"
+set :application, "sipikiapi"
+set :repo_url, "https://github.com/HarunUmar/sipikiapi.git"
 set :passenger_restart_with_touch, true
 
 # Default branch is :master
@@ -10,7 +10,7 @@ set :passenger_restart_with_touch, true
 
 # Default deploy_to directory is /var/www/my_app_name
 #set :deploy_to, "/var/www/my_app_name"
-set :deploy_to, "/home/deploy/onebitapi"
+set :deploy_to, "/home/deploy/sipiki"
 #set :rbenv_path, '/home/deploy/.rbenv'
 #set :rbenv_path, '$HOME/deploy/.rbenv'
 

@@ -1,0 +1,2 @@
+class Instansi < ApplicationRecord
+end

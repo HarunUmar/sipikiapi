@@ -1,0 +1,2 @@
+class Eselon < ApplicationRecord
+end
