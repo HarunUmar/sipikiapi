@@ -3,7 +3,7 @@ set :stage, :production
 #AILS_ENV=staging
 
 # Replace 127.0.0.1 with your server's IP address!
-server '156.67.216.109', user: 'deploy1', roles: %w{web app db}
+server 'setda-bitung.org', user: 'deploy', roles: %w{web app db}
 
 
 # server-based syntax
