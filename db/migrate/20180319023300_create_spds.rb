@@ -5,7 +5,7 @@ class CreateSpds < ActiveRecord::Migration[5.1]
       t.references :instansi, foreign_key: true
       t.text :alamat
       t.string :no_tlp
-      t.integer :status
+      t.column :status, :integer, default: 1
 
       t.timestamps
     end

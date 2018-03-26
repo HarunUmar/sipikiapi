@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20180319024638) do
   create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "provinsi_id"
     t.string "city"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provinsi_id"], name: "index_cities_on_provinsi_id"
@@ -53,23 +53,29 @@ ActiveRecord::Schema.define(version: 20180319024638) do
   end
 
   create_table "instansis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "city_id"
     t.string "instansi"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_instansis_on_city_id"
   end
 
   create_table "jabatans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "instansi_id"
+    t.bigint "city_id"
     t.string "jabatan"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_jabatans_on_city_id"
+    t.index ["instansi_id"], name: "index_jabatans_on_instansi_id"
   end
 
   create_table "kinerjas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "skp_id"
     t.string "kinerja"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["skp_id"], name: "index_kinerjas_on_skp_id"
@@ -77,14 +83,14 @@ ActiveRecord::Schema.define(version: 20180319024638) do
 
   create_table "provinsis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "provinsi"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "skps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "skp"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -94,7 +100,7 @@ ActiveRecord::Schema.define(version: 20180319024638) do
     t.bigint "instansi_id"
     t.text "alamat"
     t.string "no_tlp"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["instansi_id"], name: "index_spds_on_instansi_id"
@@ -121,7 +127,7 @@ ActiveRecord::Schema.define(version: 20180319024638) do
     t.string "token"
     t.string "nama"
     t.string "hp"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_users_on_city_id"
@@ -135,6 +141,9 @@ ActiveRecord::Schema.define(version: 20180319024638) do
   add_foreign_key "disposisi_balasans", "users"
   add_foreign_key "disposisis", "kinerjas"
   add_foreign_key "disposisis", "users"
+  add_foreign_key "instansis", "cities"
+  add_foreign_key "jabatans", "cities"
+  add_foreign_key "jabatans", "instansis"
   add_foreign_key "kinerjas", "skps"
   add_foreign_key "spds", "instansis"
   add_foreign_key "user_disposisis", "disposisis"

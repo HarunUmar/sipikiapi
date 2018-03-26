@@ -20,11 +20,16 @@ end
 
 =end
 
-
-#Instansi.create([{instansi:'Sekertariat'}, {instansi: 'Bagian'}, {instansi:'Badan'}])
+Provinsi.create([provinsi: 'Sulawesi Utara'])
+City.create([provinsi_id: 1, city: 'Bitung'])
+Instansi.create([{city_id:1,instansi:'Sekertariat'}, {city_id:1,instansi:'Dinas'}, {city_id:1,instansi: 'Bagian'}, {city_id:1,instansi:'Badan'}])
 #
 
-#Provinsi.create([provinsi: 'Sulawesi Utara'])
-#City.create([provinsi_id: 1, city: 'Bitung'])
-#Skp.create([skp: 'Disiplin'])
+
+Skp.create([skp: 'Disiplin'])
 Kinerja.create([kinerja: 'Disposisi'])
+Spd.create([spd: 'Dinas Komunikasi dan Informatika',instansi_id: 4, alamat: 'manembo-nembo', no_tlp:'0852',status:1])
+Jabatan.create([instansi_id: 2, city_id: 1, jabatan: 'Kepala Dinas'])
+
+Eselon.create([{eselon:1},{eselon:2},{eselon:3},{eselon:4}])
+User.create([spd_id: 1,jabatan_id: 1, eselon_id: 3,city_id: 1,fb: '9999',token: '9999888',nama: 'harun umar',hp: '08529841994'])

@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :token
       t.string :nama
       t.string :hp
-      t.integer :status
+      t.column :status, :integer, default: 1
 
       t.timestamps
     end
