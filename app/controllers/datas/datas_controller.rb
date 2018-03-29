@@ -28,4 +28,9 @@ class Datas::DatasController < ApplicationController
 		render json: @eselon
 	end
 
+	def serializer_method
+		defined?(@provinsi) ? ProvinsiSerializer : CitySerializer 
+		
+	end
+
 end

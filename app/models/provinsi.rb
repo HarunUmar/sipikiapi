@@ -1,3 +1,3 @@
 class Provinsi < ApplicationRecord
-	has_many :city
+	has_many :city ,autosave: true, dependent: :destroy
 end
