@@ -6,6 +6,7 @@ class CreateDisposisiBalasans < ActiveRecord::Migration[5.1]
       t.text :isi
       t.text :ket
 
+
       t.timestamps
     end
   end

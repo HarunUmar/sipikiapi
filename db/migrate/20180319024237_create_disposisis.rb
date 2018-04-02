@@ -7,7 +7,7 @@ class CreateDisposisis < ActiveRecord::Migration[5.1]
       t.string :isi
       t.text :ket
       t.datetime :deadline
-
+      t.column :status, :integer, default: 0
       t.timestamps
     end
   end

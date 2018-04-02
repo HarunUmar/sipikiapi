@@ -9,12 +9,13 @@ class Users::UsersController < ApplicationController
 	def create
 		@user = User.create(params_users)
 		if @user.save 
-			render json: {'success' =>1, 'message' => 'data berhasil disimpan'},status: :ok
+			render json: {'success' =>1, 'message' => @user},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
 		end
 
 	end
+
 
 
 
@@ -31,7 +32,7 @@ class Users::UsersController < ApplicationController
 
 	private def params_users
 		
-    	params.permit(:spd_id,:jabatan_id,:eselon_id,:city_id,:fb,:token,:nama,:hp,:status)
+    	params.permit(:spd_id,:jabatan_id,:eselon_id,:city_id, :tingkat_id,:fb,:token,:nama,:hp,:status)
  
 	end
 
