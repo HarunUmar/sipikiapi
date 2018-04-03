@@ -29,7 +29,8 @@ Rails.application.routes.draw do
     end
 
      namespace :users do 
- 		get '/cek_daftar/:id_fb', to: 'users#cek_daftar'
+ 		get '/cek_daftar/:id_fb/:version', to: 'users#cek_daftar'
+ 		get '/tujuan_disposisi/:tingkat_id/:city_id', to: 'users#tujuan_disposisi'
  		post '/', to: 'users#create'
  		get '/in_spd/:spd_id', to: 'users#in_spd'
  		get '/', to: 'users#index'
