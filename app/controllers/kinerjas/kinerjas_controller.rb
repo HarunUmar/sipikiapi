@@ -3,7 +3,7 @@ class Kinerjas::KinerjasController < ApplicationController
 
 	#show all disposisi
 	def show_disposisi
-		@disposisi = Disposisi.all
+		@disposisi = Disposisi.joins(:user).where(:users => {:city_id => params[:city_id]}).order(id: :desc).limit(20)
 		render json: @disposisi
 	end
 
@@ -90,21 +90,26 @@ class Kinerjas::KinerjasController < ApplicationController
 
 	#show disposisi where user is created disposisi
 	def show_disposisi_user
-		@user = Disposisi.where(user_id: params[:user_id]).order(id: :desc)
+		@user = Disposisi.where(user_id: params[:user_id]).order(id: :desc).limit(20)
 		render json: @user	
 	end
 
 	#show disposisi from other user
 	def show_my_disposisi
-		@user = UserDisposisi.where(user_id: params[:user_id]).order(id: :desc)
+		@user = UserDisposisi.where(user_id: params[:user_id]).order(id: :desc).limit(20)
 		render json: @user	
 	end
 
 	#show disposisi user into spd
 	def show_disposisi_spd
 
-		@user = Disposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc)
+		@user = Disposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc).limit(20)
 		render json:  @user 
+	end
+
+	def spd_structural
+		@users  = User.where(spd_id: params[:spd_id]).where(city_id: params[:city_id]).order(:tingkat_id)
+		render json: @users
 		
 	end
 

@@ -5,10 +5,13 @@ Rails.application.routes.draw do
 
   #resources :users, only:[:index, :create]
   namespace :kinerjas do
-  	 get '/get_all_disposisi', to: 'kinerjas#show_disposisi'
+  	 get '/get_all_disposisi/:city_id', to: 'kinerjas#show_disposisi'
   	 get '/get_disposisi_user/:user_id', to: 'kinerjas#show_disposisi_user'
   	 get '/get_disposisi_spd/:spd_id', to: 'kinerjas#show_disposisi_spd'
   	 get '/get_my_disposisi/:user_id', to: 'kinerjas#show_my_disposisi'
+  	 get '/spd_structural/:spd_id/:city_id', to: 'kinerjas#spd_structural'
+
+
   	 post '/', to: 'kinerjas#create_disposisi'
   	 post '/disposisi_balasan', to: 'kinerjas#create_disposisi_balasan'
   	 get '/terima_disposisi/:disposisi_id', to: 'kinerjas#terima_disposisi'
@@ -30,7 +33,8 @@ Rails.application.routes.draw do
 
      namespace :users do 
  		get '/cek_daftar/:id_fb/:version', to: 'users#cek_daftar'
- 		get '/tujuan_disposisi/:tingkat_id/:city_id', to: 'users#tujuan_disposisi'
+ 		get '/in_room/:id/:tingkat_id/:spd_id/:city_id', to: 'users#user_in_room'
+ 		get '/out_room/:id/:tingkat_id/:city_id', to: 'users#user_out_room'
  		post '/', to: 'users#create'
  		get '/in_spd/:spd_id', to: 'users#in_spd'
  		get '/', to: 'users#index'

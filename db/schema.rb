@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.string "spd"
     t.bigint "instansi_id"
     t.text "alamat"
+    t.string "lat"
+    t.string "lang"
     t.string "no_tlp"
     t.integer "status", default: 1
     t.datetime "created_at", null: false

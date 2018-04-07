@@ -1,4 +1,12 @@
 class UserDisposisiSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :nilai, :status
+  attributes :id, :fb,:user_id, :nama, :nilai, :status
   belongs_to :disposisi
+
+  def fb 
+  	object.user.fb
+  end
+
+  def nama
+  	object.user.nama
+  end
 end

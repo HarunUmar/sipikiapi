@@ -4,6 +4,7 @@ class Disposisi < ApplicationRecord
   has_many :gambar_disposisi
   has_many :user_disposisi
   has_many :disposisi_balasan
+  
   attr_accessor :picture
   validates_presence_of :user_id,:kinerja_id,:judul,:isi,:ket,:deadline ,:message => 'masih kosong'
 
