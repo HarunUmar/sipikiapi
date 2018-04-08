@@ -22,18 +22,18 @@ class Users::UsersController < ApplicationController
 	def cek_daftar
 		@user = User.where(fb: params[:id_fb])
 				if params[:version] != "V1"
-			render json: {'success' => 0, 'message' => 'Maaf, Update dulu versi Sipiki anda'}	
+			render json: {'success' => 2, 'message' => 'Maaf, Update dulu versi Sipiki anda'}	
 		
 		else 
 
 			if @user.empty? 
-					render json: {'success' => 0, 'message' => 'silahkan lengkapi data dengan sebernarnya'}
+					render json: {'success' => 3, 'message' => 'silahkan lengkapi data dengan sebernarnya'}
 			else 
 
 				if @user[0][:status] == 1
 					render json: {'success' => 1, 'message' => 'welcome back ' + @user[0][:nama]}	
 				else
-				  render json: {'success' => 0, 'message' => 'Maaf akun anda belum aktif' }
+				  render json: {'success' => 4, 'message' => 'Maaf akun anda belum aktif' }
 				end
 			end
 		end
