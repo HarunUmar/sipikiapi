@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   	 get '/terima_disposisi/:user_id/:disposisi_id', to: 'kinerjas#terima_disposisi'
   	 get '/disposisi_selesai/:user_id/:disposisi_id', to: 'kinerjas#disposisi_selesai'
   	 get '/tolak_disposisi/:user_id/:disposisi_id', to: 'kinerjas#tolak_disposisi'
+     get '/beri_nilai_disposisi/:user_id/:disposisi_id/:nilai', to: 'kinerjas#beri_nilai_disposisi'
+     
   	 
      get '/details_disposisi/:disposisi_id', to: 'kinerjas#details_disposisi'
      get '/details_my_disposisi/:user_id/:disposisi_id', to: 'kinerjas#details_my_disposisi'

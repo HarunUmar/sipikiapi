@@ -48,13 +48,28 @@ class Kinerjas::KinerjasController < ApplicationController
 	
 		@disposisi_selesai= UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
    		 #
-		if @disposisi_selesai.update(status: 2, nilai: 100)
-				render json: {'success' =>1, 'message' => 'Disposisi Telah selesai'},status: :ok
+		if @disposisi_selesai.update(status: 2)
+				render json: {'success' =>1, 'message' => 'Silahkan tunggu info selanjutnya'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => 'opss terjadi kesalahan'},status: :ok
 		end
 		
 	end
+
+
+	#akhiri disposisi
+	def beri_nilai_disposisi
+	
+		@disposisi_nilai= UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
+   		 #
+		if @disposisi_nilai.update(status: 4, nilai: params[:nilai])
+				render json: {'success' =>1, 'message' => 'Disposisi telah selesai'},status: :ok
+		else 
+			render json: {'success' =>0, 'message' => 'opss terjadi kesalahan'},status: :ok
+		end
+		
+	end
+
 
 	#disposisi di tolak oleh atasan
 
