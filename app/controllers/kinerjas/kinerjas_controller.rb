@@ -33,9 +33,10 @@ class Kinerjas::KinerjasController < ApplicationController
 	#terima disposisi
 	def terima_disposisi
 	
-		@terima_disposisi = Disposisi.find(params[:disposisi_id])
-   		 if @terima_disposisi.update_attribute(:status, 1)
-			render json: {'success' =>1, 'message' => 'Disposisi Telah Diterima'},status: :ok
+		@terima_disposisi = UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
+   		 #
+		if @terima_disposisi.update(status: 1, nilai: 20)
+				render json: {'success' =>1, 'message' => 'Disposisi Telah Diterima'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => 'opss terjadi kesalahan'},status: :ok
 		end
@@ -45,11 +46,10 @@ class Kinerjas::KinerjasController < ApplicationController
 	#akhiri disposisi
 	def disposisi_selesai
 	
-		@terima_disposisi = Disposisi.find(params[:disposisi_id])
-
-   		 if @terima_disposisi.update_attribute(:status, 2)
-   		 	 @terima_disposisi.nilai_selesai()
-			render json: {'success' =>1, 'message' => 'Disposisi telah selesai'},status: :ok
+		@disposisi_selesai= UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
+   		 #
+		if @disposisi_selesai.update(status: 2, nilai: 100)
+				render json: {'success' =>1, 'message' => 'Disposisi Telah selesai'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => 'opss terjadi kesalahan'},status: :ok
 		end
@@ -60,10 +60,11 @@ class Kinerjas::KinerjasController < ApplicationController
 
 	def tolak_disposisi
 	
-		@terima_disposisi = Disposisi.find(params[:disposisi_id])
-   		 if @terima_disposisi.update_attribute(:status, 3)
-   		 	 @terima_disposisi.nilai_tolak()
-			render json: {'success' =>1, 'message' => 'anda tidak menyetujui disposisi ini'},status: :ok
+		
+		@tolak_disposisi = UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
+   		 #
+		if @tolak_disposisi.update(status: 3, nilai: 0)
+				render json: {'success' =>1, 'message' => 'Disposisi ditolak'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => 'opss terjadi kesalahan'},status: :ok
 		end
@@ -103,15 +104,18 @@ class Kinerjas::KinerjasController < ApplicationController
 	#show disposisi user into spd
 	def show_disposisi_spd
 
-		@user = Disposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc).limit(20)
+		@user = UserDisposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc).limit(20)
 		render json:  @user 
 	end
 
-	def spd_structural
-		@users  = User.where(spd_id: params[:spd_id]).where(city_id: params[:city_id]).order(:tingkat_id)
-		render json: @users
+	
+
+	def details_disposisi
+		@disposisi = Disposisi.where(id: params[:disposisi_id])
+		render json: @disposisi
 		
 	end
+
 
 	#param request from client to table disposisi
 	private def disposisi_params

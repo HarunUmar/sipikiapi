@@ -9,14 +9,18 @@ Rails.application.routes.draw do
   	 get '/get_disposisi_user/:user_id', to: 'kinerjas#show_disposisi_user'
   	 get '/get_disposisi_spd/:spd_id', to: 'kinerjas#show_disposisi_spd'
   	 get '/get_my_disposisi/:user_id', to: 'kinerjas#show_my_disposisi'
-  	 get '/spd_structural/:spd_id/:city_id', to: 'kinerjas#spd_structural'
+  	 
 
 
   	 post '/', to: 'kinerjas#create_disposisi'
   	 post '/disposisi_balasan', to: 'kinerjas#create_disposisi_balasan'
-  	 get '/terima_disposisi/:disposisi_id', to: 'kinerjas#terima_disposisi'
-  	 get '/disposisi_selesai/:disposisi_id', to: 'kinerjas#disposisi_selesai'
-  	 get '/tolak_disposisi/:disposisi_id', to: 'kinerjas#tolak_disposisi'
+
+  	 get '/terima_disposisi/:user_id/:disposisi_id', to: 'kinerjas#terima_disposisi'
+  	 get '/disposisi_selesai/:user_id/:disposisi_id', to: 'kinerjas#disposisi_selesai'
+  	 get '/tolak_disposisi/:user_id/:disposisi_id', to: 'kinerjas#tolak_disposisi'
+  	 
+     get '/details_disposisi/:disposisi_id', to: 'kinerjas#details_disposisi'
+     get '/details_my_disposisi/:user_id/:disposisi_id', to: 'kinerjas#details_my_disposisi'
   	  
   	
   end
@@ -33,11 +37,17 @@ Rails.application.routes.draw do
 
      namespace :users do 
  		get '/cek_daftar/:id_fb/:version', to: 'users#cek_daftar'
+
  		get '/in_room/:id/:tingkat_id/:spd_id/:city_id', to: 'users#user_in_room'
  		get '/out_room/:id/:tingkat_id/:city_id', to: 'users#user_out_room'
+
  		post '/', to: 'users#create'
- 		get '/in_spd/:spd_id', to: 'users#in_spd'
+
+ 		get '/spd_structural/:spd_id/:city_id', to: 'users#spd_structural'
+
+
  		get '/', to: 'users#index'
+ 		get '/profile/:id_user', to: 'users#profile'
     end
 
 

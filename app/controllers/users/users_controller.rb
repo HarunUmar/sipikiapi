@@ -22,18 +22,18 @@ class Users::UsersController < ApplicationController
 	def cek_daftar
 		@user = User.where(fb: params[:id_fb])
 				if params[:version] != "V1"
-			render json: {'success' => 2, 'message' => 'Maaf, Update dulu versi Sipiki anda'}	
+			render json: {'success' => 0, 'message' => 'Maaf, Update dulu versi Sipiki anda'}	
 		
 		else 
 
 			if @user.empty? 
-					render json: {'success' => 3, 'message' => 'silahkan lengkapi data dengan sebernarnya'}
+					render json: {'success' => 1, 'message' => 'silahkan lengkapi data dengan sebernarnya'}
 			else 
 
 				if @user[0][:status] == 1
-					render json: {'success' => 1, 'message' => 'welcome back ' + @user[0][:nama]}	
+					render json: {'success' => 2, 'message' => 'welcome back ' + @user[0][:nama]}	
 				else
-				  render json: {'success' => 4, 'message' => 'Maaf akun anda belum aktif' }
+				  render json: {'success' => 3, 'message' => 'Maaf akun anda belum aktif' }
 				end
 			end
 		end
@@ -89,13 +89,25 @@ where users.id != 1 and users.spd_id = 1 and haks.tingkat_id= 4 and users.city_i
 	end
 
 	def user_out_room
-			@tujuan = Tingkat.select(
+         @tingkatx = 0
+		if(params[:tingkat_id] <= "7") 
+			
+				@tingkatx = params[:tingkat_id]
+
+				if params[:tingkat_id] == "7"
+
+					@tingkatx = 6
+					
+				end
+
+				#in here logic get users
+				@tujuan = Tingkat.select(
   [
     Hak.arel_table[:tingkat_id], Tingkat.arel_table[:tingkat], User.arel_table[:nama], User.arel_table[:id], User.arel_table[:fb], Spd.arel_table[:spd], Jabatan.arel_table[:jabatan]
   ]
 ).where(
   User.arel_table[:id].not_eq(params[:id]).and(
-    Hak.arel_table[:tingkat_id].eq(params[:tingkat_id]).and(User.arel_table[:city_id].eq(params[:city_id]))
+    Hak.arel_table[:tingkat_id].eq(@tingkatx).and(User.arel_table[:city_id].eq(params[:city_id]))
   )
 ).joins(
   Tingkat.arel_table.join(Hak.arel_table).on(Hak.arel_table[:hak].eq(Tingkat.arel_table[:id])).join_sources
@@ -113,6 +125,16 @@ where users.id != 1 and users.spd_id = 1 and haks.tingkat_id= 4 and users.city_i
 
 
 	render json: @tujuan
+
+		end
+			
+		
+	end
+
+
+	def profile
+		@user = User.find(params[:id_user])
+		render json: @user
 		
 	end
 
@@ -135,9 +157,10 @@ where users.id != 1 and users.spd_id = 1 and haks.tingkat_id= 4 and users.city_i
  	end
 
 
-	def in_spd
-		@user = User.where(spd_id: params[:spd_id]).order(:eselon_id)
-		render json: @user
+	def spd_structural
+		@users  = User.where(spd_id: params[:spd_id]).where(city_id: params[:city_id]).order(:tingkat_id)
+		render json: @users
+		
 	end
 
 

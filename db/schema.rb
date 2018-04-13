@@ -22,13 +22,12 @@ ActiveRecord::Schema.define(version: 20180401103924) do
   end
 
   create_table "disposisi_balasans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_disposisi_id"
     t.bigint "user_id"
-    t.bigint "disposisi_id"
     t.text "isi"
-    t.text "ket"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["disposisi_id"], name: "index_disposisi_balasans_on_disposisi_id"
+    t.index ["user_disposisi_id"], name: "index_disposisi_balasans_on_user_disposisi_id"
     t.index ["user_id"], name: "index_disposisi_balasans_on_user_id"
   end
 
@@ -181,7 +180,7 @@ ActiveRecord::Schema.define(version: 20180401103924) do
   end
 
   add_foreign_key "cities", "provinsis"
-  add_foreign_key "disposisi_balasans", "disposisis"
+  add_foreign_key "disposisi_balasans", "user_disposisis"
   add_foreign_key "disposisi_balasans", "users"
   add_foreign_key "disposisis", "kinerjas"
   add_foreign_key "disposisis", "users"

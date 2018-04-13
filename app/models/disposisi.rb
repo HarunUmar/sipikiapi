@@ -18,15 +18,6 @@ def save_user(params)
 	params.each do |user | self.user_disposisi.create(:user_id => user, :nilai => 0, :status => 0) end
 end
 
-def nilai_selesai()
-	self.user_disposisi.update(:nilai => "100",:status => 1)
-	
-end
-
-def nilai_tolak()
-	self.user_disposisi.update(:nilai => "0", :status => 0)
-	
-end
 
 
 
