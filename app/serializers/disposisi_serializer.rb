@@ -3,7 +3,7 @@ class DisposisiSerializer < ActiveModel::Serializer
  require 'action_view/helpers'
  
  include ActionView::Helpers::DateHelper
-  attributes :id, :user_id, :spd ,:jabatan,:judul,:isi,:ket,:deadline , :batas_waktu, :waktu_buat, :status, :created_at 
+  attributes :id, :nama ,:fb,:user_id, :spd ,:jabatan,:judul,:isi,:ket,:deadline , :batas_waktu, :waktu_buat, :status, :created_at 
   has_many :gambar_disposisi
   has_many :user_disposisi 
   #has_many :disposisi_balasan
@@ -28,6 +28,10 @@ class DisposisiSerializer < ActiveModel::Serializer
     object.user.fb
     
   end
+  def nama
+      object.user.nama
+  
+  end
 
 
   def jabatan
@@ -38,6 +42,7 @@ class DisposisiSerializer < ActiveModel::Serializer
   def spd
       object.user.spd.slice(:spd)
   end
+
 
  
 

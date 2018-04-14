@@ -128,9 +128,18 @@ class Kinerjas::KinerjasController < ApplicationController
 	def details_disposisi
 		@disposisi = Disposisi.where(id: params[:disposisi_id])
 		render json: @disposisi
-		
 	end
 
+	def details_my_disposisi
+		@disposisi = UserDisposisi.where(user_id: params[:user_id]).where(disposisi_id: params[:disposisi_id])
+			render json: @disposisi
+	end
+
+
+	def details_user_disposisi
+		@disposisi = Disposisi.where(user_id: params[:user_id]).where(id: params[:disposisi_id])
+			render json: @disposisi
+	end
 
 	#param request from client to table disposisi
 	private def disposisi_params

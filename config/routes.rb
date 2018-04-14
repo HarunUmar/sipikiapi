@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   	 get '/get_my_disposisi/:user_id', to: 'kinerjas#show_my_disposisi'
   	 
 
-
   	 post '/', to: 'kinerjas#create_disposisi'
   	 post '/disposisi_balasan', to: 'kinerjas#create_disposisi_balasan'
 
@@ -23,7 +22,8 @@ Rails.application.routes.draw do
   	 
      get '/details_disposisi/:disposisi_id', to: 'kinerjas#details_disposisi'
      get '/details_my_disposisi/:user_id/:disposisi_id', to: 'kinerjas#details_my_disposisi'
-  	  
+  	 get '/details_user_disposisi/:user_id/:disposisi_id', to: 'kinerjas#details_user_disposisi'
+     
   	
   end
  
