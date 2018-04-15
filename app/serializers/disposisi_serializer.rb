@@ -3,7 +3,7 @@ class DisposisiSerializer < ActiveModel::Serializer
  require 'action_view/helpers'
  
  include ActionView::Helpers::DateHelper
-  attributes :id, :nama ,:fb,:user_id, :spd ,:jabatan,:judul,:isi,:ket,:deadline , :batas_waktu, :waktu_buat, :status, :created_at 
+  attributes :id, :nama ,:fb,:user_id, :spd ,:jabatan,:judul,:isi,:ket,:deadline , :batas_waktu, :waktu_buat, :status, :created_at ,:jumlah_penerima
   has_many :gambar_disposisi
   has_many :user_disposisi 
   #has_many :disposisi_balasan
@@ -11,11 +11,11 @@ class DisposisiSerializer < ActiveModel::Serializer
 
   def batas_waktu
     if(Time.now > object.deadline)
-      'waktu telah habis'
       object[:status] = 1 #selesai
     else
       distance_of_time_in_words(Time.now, object.deadline)
-      object[:status] = 0 #sementara
+     
+    
   end
   end
 
@@ -42,6 +42,12 @@ class DisposisiSerializer < ActiveModel::Serializer
   def spd
       object.user.spd.slice(:spd)
   end
+
+  def jumlah_penerima
+      object.user_disposisi.length
+  end
+
+
 
 
  
