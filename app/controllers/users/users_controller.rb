@@ -31,7 +31,7 @@ class Users::UsersController < ApplicationController
 			else 
 
 				if @user[0][:status] == 1
-					render json: {'success' => 2, 'message' => 'welcome back ' + @user[0][:nama]}	
+					render json: {'success' => 2, 'nama' => @user[0][:nama], 'data' => @user}	
 				else
 				  render json: {'success' => 3, 'message' => 'Maaf akun anda belum aktif' }
 				end
