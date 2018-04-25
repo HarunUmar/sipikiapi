@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401103924) do
+ActiveRecord::Schema.define(version: 20180424140822) do
 
   create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "provinsi_id"
@@ -76,12 +76,12 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.index ["disposisi_id"], name: "index_gambar_disposisis_on_disposisi_id"
   end
 
-  create_table "haks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "tingkat_id"
-    t.integer "hak"
+  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "dari"
+    t.string "ket"
+    t.integer "untuk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tingkat_id"], name: "index_haks_on_tingkat_id"
   end
 
   create_table "instansis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -93,17 +93,10 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.index ["city_id"], name: "index_instansis_on_city_id"
   end
 
-  create_table "jabatans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "instansi_id"
-    t.bigint "city_id"
-    t.bigint "tingkat_id"
-    t.string "jabatan"
-    t.integer "status", default: 1
+  create_table "jenis_jabatans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "jenis"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["city_id"], name: "index_jabatans_on_city_id"
-    t.index ["instansi_id"], name: "index_jabatans_on_instansi_id"
-    t.index ["tingkat_id"], name: "index_jabatans_on_tingkat_id"
   end
 
   create_table "kinerjas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -115,11 +108,33 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.index ["skp_id"], name: "index_kinerjas_on_skp_id"
   end
 
+  create_table "pemkots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "pemkot"
+    t.integer "parent_daftar"
+    t.integer "parent_atasan"
+    t.integer "ada_user"
+    t.integer "kop"
+    t.integer "group"
+    t.bigint "spd_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spd_id"], name: "index_pemkots_on_spd_id"
+  end
+
   create_table "provinsis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "provinsi"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "dari"
+    t.integer "tujuan"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_rules_on_city_id"
   end
 
   create_table "skps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -142,12 +157,6 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.index ["instansi_id"], name: "index_spds_on_instansi_id"
   end
 
-  create_table "tingkats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "tingkat"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "user_disposisis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "disposisi_id"
@@ -160,11 +169,9 @@ ActiveRecord::Schema.define(version: 20180401103924) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "spd_id"
-    t.bigint "jabatan_id"
+    t.bigint "pemkot_id"
     t.bigint "eselon_id"
     t.bigint "city_id"
-    t.bigint "tingkat_id"
     t.string "fb"
     t.string "token"
     t.string "nama"
@@ -174,9 +181,7 @@ ActiveRecord::Schema.define(version: 20180401103924) do
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["eselon_id"], name: "index_users_on_eselon_id"
-    t.index ["jabatan_id"], name: "index_users_on_jabatan_id"
-    t.index ["spd_id"], name: "index_users_on_spd_id"
-    t.index ["tingkat_id"], name: "index_users_on_tingkat_id"
+    t.index ["pemkot_id"], name: "index_users_on_pemkot_id"
   end
 
   add_foreign_key "cities", "provinsis"
@@ -186,18 +191,14 @@ ActiveRecord::Schema.define(version: 20180401103924) do
   add_foreign_key "disposisis", "users"
   add_foreign_key "gambar_disposisi_balasans", "disposisi_balasans"
   add_foreign_key "gambar_disposisis", "disposisis"
-  add_foreign_key "haks", "tingkats"
   add_foreign_key "instansis", "cities"
-  add_foreign_key "jabatans", "cities"
-  add_foreign_key "jabatans", "instansis"
-  add_foreign_key "jabatans", "tingkats"
   add_foreign_key "kinerjas", "skps"
+  add_foreign_key "pemkots", "spds"
+  add_foreign_key "rules", "cities"
   add_foreign_key "spds", "instansis"
   add_foreign_key "user_disposisis", "disposisis"
   add_foreign_key "user_disposisis", "users"
   add_foreign_key "users", "cities"
   add_foreign_key "users", "eselons"
-  add_foreign_key "users", "jabatans"
-  add_foreign_key "users", "spds"
-  add_foreign_key "users", "tingkats"
+  add_foreign_key "users", "pemkots"
 end

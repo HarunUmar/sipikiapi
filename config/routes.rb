@@ -29,22 +29,20 @@ Rails.application.routes.draw do
  
 
    namespace :datas do 
- 		get '/get_provinsi', to: 'datas#get_provinsi'
- 		get '/get_city/:provinsi_id', to: 'datas#get_city'
- 		get '/get_instansi/:city_id', to: 'datas#get_instansi'
- 		get '/get_spd/:instansi_id', to: 'datas#get_spd'
- 		get '/get_jabatan/:instansi_id/:city_id', to: 'datas#get_jabatan'
+ 		get '/get_provinsi_city', to: 'datas#get_provinsi_city'
+ 		get '/get_instansi_spd/:city_id', to: 'datas#get_instansi_spd'
+ 		get '/get_pemkot/:spd_id', to: 'datas#get_pemkot'
+    get '/lanjut/:id', to: 'datas#lanjut'
  		get '/get_eselon', to: 'datas#get_eselon'
     end
 
-     namespace :users do 
- 		get '/cek_daftar/:id_fb/:version', to: 'users#cek_daftar'
+    namespace :users do 
+ 		get '/cek_daftar/:id_fb', to: 'users#cek_daftar'
+    get 'update_token/:user_id/:token', to: 'users#update_token'
 
- 		get '/in_room/:id/:tingkat_id/:spd_id/:city_id', to: 'users#user_in_room'
- 		get '/out_room/:id/:tingkat_id/:city_id', to: 'users#user_out_room'
-
- 		post '/', to: 'users#create'
-
+ 		get '/tujuan/:id/:group/:spd_id/:city_id', to: 'users#tujuan'
+    
+    post '/', to: 'users#create'
  		get '/spd_structural/:spd_id/:city_id', to: 'users#spd_structural'
 
 

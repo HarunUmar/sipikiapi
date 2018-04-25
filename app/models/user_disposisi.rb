@@ -3,6 +3,7 @@ class UserDisposisi < ApplicationRecord
   belongs_to :disposisi
   has_many :disposisi_balasan
   
+  
 =begin
 
 def nilai_selesai()

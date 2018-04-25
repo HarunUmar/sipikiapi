@@ -8,7 +8,6 @@ class CreateSpds < ActiveRecord::Migration[5.1]
       t.string :lang
       t.string :no_tlp
       t.column :status, :integer, default: 1
-
       t.timestamps
     end
   end
