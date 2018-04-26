@@ -9,15 +9,13 @@ class Users::UsersController < ApplicationController
 	def create
 		@user = User.create(params_users)
 		if @user.save
-			@user.pemkot[:spd_id];
-			render json: {'success' =>1, 'message' => @user ,'spd_id' => @user.pemkot[:spd_id]},status: :ok
+
+			render json: {'success' =>1, 'message' => @user, 'group' => @user.pemkot[:group],'spd_id' => @user.pemkot[:spd_id]},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
 		end
 
 	end
-
-
 	#cek user ready exist 
 	def cek_daftar
 		@user = User.where(fb: params[:id_fb])
@@ -38,27 +36,18 @@ class Users::UsersController < ApplicationController
 	end
 
 	def tujuan
-
-		
-	end
-
-	#get user tujuan disposisi 
-	def user_in_room
-
-
-=begin
-
-SELECT haks.tingkat_id, tingkats.tingkat,haks.hak,users.nama,users.id ,spds.spd, jabatans.jabatan
-FROM tingkats  
-INNER JOIN haks  ON haks.hak = tingkats.id   
-INNER JOIN users ON haks.hak = users.tingkat_id 
-INNER JOIN spds  ON users.spd_id = spds.id
-INNER JOIN jabatans ON users.jabatan_id = jabatans.id
-where users.id != 1 and users.spd_id = 1 and haks.tingkat_id= 4 and users.city_id =1 
-=end
-
+			# city_id = params[:city_id]
+			# dari = params[:pemkot_id]
+			# @user = Pemkot.joins(:user).select(:city_id, :nama).where(:users => {:city_id => 1})
+			@user = Pemkot.joins(:user).select(:fb,:nama, :pemkot,'users.id').where(:users => {:city_id => params[:city_id]}).where(:group => Rule.select(:tujuan).where(:dari => Pemkot.select('pemkots.group').where(:pemkots =>{id: params[:pemkot_id]}))).order(:spd_id)
+		#select rules.tujuan FROM rules WHERE dari IN (select pemkots.group from pemkots where id='20')
+		#select rules.tujuan FROM rules WHERE dari IN (select pemkots.group from pemkots where id='20')
+		# 		WHERE users.city_id = #{city_id} and pemkots.group IN (SELECT tujuan FROM rules WHERE dari = #{dari})"
+		# @user = ActiveRecord::Base.connection.execute(sql)
+			render json: @user
 
 	end
+
 
 
 

@@ -40,12 +40,9 @@ Rails.application.routes.draw do
  		get '/cek_daftar/:id_fb', to: 'users#cek_daftar'
     get 'update_token/:user_id/:token', to: 'users#update_token'
 
- 		get '/tujuan/:id/:group/:spd_id/:city_id', to: 'users#tujuan'
-    
+ 		get '/tujuan/:city_id/:pemkot_id', to: 'users#tujuan'
     post '/', to: 'users#create'
  		get '/spd_structural/:spd_id/:city_id', to: 'users#spd_structural'
-
-
  		get '/', to: 'users#index'
  		get '/profile/:id_user', to: 'users#profile'
     end
