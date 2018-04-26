@@ -9,7 +9,7 @@ class Users::UsersController < ApplicationController
 	def create
 
 
-	@userx = User.where(fb: params[:fb])
+
 	
 	
 		@user = User.create(params_users)
