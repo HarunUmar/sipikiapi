@@ -7,13 +7,22 @@ class Users::UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.create(params_users)
+
+
+	@userx = User.where(fb: params[:fb])
+	
+	if @userx.empty? 
+			@user = User.create(params_users)
 		if @user.save
 			render json: {'success' =>1, 'message' => @user,'spd_id' => @user.pemkot[:spd_id]},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
 		end
-
+	else 
+		render json: {'success' =>2},status: :ok		
+	
+	end
+		
 	end
 	#cek user ready exist 
 	def cek_daftar
