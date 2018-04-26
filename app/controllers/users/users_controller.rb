@@ -9,8 +9,7 @@ class Users::UsersController < ApplicationController
 	def create
 		@user = User.create(params_users)
 		if @user.save
-
-			render json: {'success' =>1, 'message' => @user, 'group' => @user.pemkot[:group],'spd_id' => @user.pemkot[:spd_id]},status: :ok
+			render json: {'success' =>1, 'message' => @user,'spd_id' => @user.pemkot[:spd_id]},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
 		end
