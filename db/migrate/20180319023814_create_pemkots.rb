@@ -4,8 +4,8 @@ class CreatePemkots < ActiveRecord::Migration[5.1]
       t.string :pemkot
       t.integer :parent_daftar
       t.integer :parent_atasan
-      t.integer :parent_unit
       t.integer :ada_user
+      t.integer :parent_unit
       t.integer :kop
       t.integer :group
       t.references :spd, foreign_key: true
