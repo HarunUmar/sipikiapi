@@ -7,14 +7,9 @@ class Users::UsersController < ApplicationController
 	end
 
 	def create
-
-
-
-	
-	
 		@user = User.create(params_users)
 		if @user.save
-			render json: {'success' =>1, 'message' => @user,'spd_id' => @user.pemkot[:spd_id]},status: :ok
+			render json: {'success' =>1, 'message' => @user,'spd_id' => @user.pemkot[:spd_id],'parent_unit' => @user.pemkot[:parent_unit]},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @user.errors.full_messages},status: :ok
 		end
@@ -22,14 +17,16 @@ class Users::UsersController < ApplicationController
 	end
 	#cek user ready exist 
 	def cek_daftar
-		@user = User.where(fb: params[:id_fb])
+		@user_daftar = User.where(fb: params[:id_fb])
 		
-			if @user[0][:status] == 0
-			render json: {'success' => 3, 'message' => 'Maaf akun anda belum aktif' }
+			if @user_daftar.empty?
+			render json: {'success' => 0, 'message' => 'Silihkan Register terlebih dahulu' }
 			else 
-			render json: {'success' => 2, 'nama' => @user[0][:nama], 'data' => @user}
+				@user = @user_daftar.joins(:pemkot).first
+			render json: {'success' =>1, 'message' => @user,'spd_id' => @user.pemkot[:spd_id],'parent_unit' => @user.pemkot[:parent_unit]},status: :ok
 			end			
 	end
+
 
 	def update_token
 		@user = User.where(id: params[:user_id])
@@ -52,18 +49,14 @@ class Users::UsersController < ApplicationController
 
 	end
 
-
-
-
 	def profile
-		@user = User.find(params[:id_user])
-		render json: @user
-		
+		@user = User.joins(:user_disposisi).select("users.id,(user_disposisis.nilai / COUNT(user_disposisis.id)) AS nilai_disposisi, COUNT(user_disposisis.id) AS jumlah_disposisi").where(id: params[:id_user])
+		#@user = User.joins(:user_disposisi).where(id: params[:id_user]).pluck('SUM(user_disposisis.nilai))', 'COUNT(user_disposisis.id)')
+		render json: {'result' => @user}
 	end
-
 	private def params_users
 		
-    	params.permit(:pemkot_id,:eselon_id,:city_id, :tingkat_id,:fb,:token,:nama,:hp,:status)
+    	params.permit(:pemkot_id,:eselon_id,:city_id,:fb,:token,:nama,:hp,:status)
  
 	end
 
@@ -74,8 +67,9 @@ class Users::UsersController < ApplicationController
  	end
 
 	def spd_structural
-		@users  = User.where(spd_id: params[:spd_id]).where(city_id: params[:city_id]).order(:tingkat_id)
-		render json: @users
+
+		@users  = User.joins(:pemkot).select('users.id,users.pemkot_id,users.eselon_id,users.city_id,users.fb,users.nama,pemkots.pemkot').where(:pemkots => {spd_id: params[:spd_id], parent_unit: params[:parent_unit]}).where(city_id: params[:city_id]).order('pemkots.parent_daftar')
+		render json: {'result' =>@users}
 		
 	end
 

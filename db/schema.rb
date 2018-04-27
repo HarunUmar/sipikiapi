@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424140822) do
+ActiveRecord::Schema.define(version: 20180427022228) do
+
+  create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "kinerja_id"
+    t.bigint "user_id"
+    t.string "judul"
+    t.text "ket"
+    t.string "lat"
+    t.string "lang"
+    t.text "lokasi"
+    t.datetime "waktu"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kinerja_id"], name: "index_agendas_on_kinerja_id"
+    t.index ["user_id"], name: "index_agendas_on_user_id"
+  end
 
   create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "provinsi_id"
@@ -93,12 +109,6 @@ ActiveRecord::Schema.define(version: 20180424140822) do
     t.index ["city_id"], name: "index_instansis_on_city_id"
   end
 
-  create_table "jenis_jabatans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "jenis"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "kinerjas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "skp_id"
     t.string "kinerja"
@@ -112,6 +122,7 @@ ActiveRecord::Schema.define(version: 20180424140822) do
     t.string "pemkot"
     t.integer "parent_daftar"
     t.integer "parent_atasan"
+    t.integer "parent_unit"
     t.integer "ada_user"
     t.integer "kop"
     t.integer "group"
@@ -131,6 +142,7 @@ ActiveRecord::Schema.define(version: 20180424140822) do
   create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "dari"
     t.integer "tujuan"
+    t.string "catatan"
     t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -155,6 +167,17 @@ ActiveRecord::Schema.define(version: 20180424140822) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["instansi_id"], name: "index_spds_on_instansi_id"
+  end
+
+  create_table "user_agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "agenda_id"
+    t.bigint "user_id"
+    t.integer "status", default: 0
+    t.string "nilai"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agenda_id"], name: "index_user_agendas_on_agenda_id"
+    t.index ["user_id"], name: "index_user_agendas_on_user_id"
   end
 
   create_table "user_disposisis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -184,6 +207,8 @@ ActiveRecord::Schema.define(version: 20180424140822) do
     t.index ["pemkot_id"], name: "index_users_on_pemkot_id"
   end
 
+  add_foreign_key "agendas", "kinerjas"
+  add_foreign_key "agendas", "users"
   add_foreign_key "cities", "provinsis"
   add_foreign_key "disposisi_balasans", "user_disposisis"
   add_foreign_key "disposisi_balasans", "users"
@@ -196,6 +221,8 @@ ActiveRecord::Schema.define(version: 20180424140822) do
   add_foreign_key "pemkots", "spds"
   add_foreign_key "rules", "cities"
   add_foreign_key "spds", "instansis"
+  add_foreign_key "user_agendas", "agendas"
+  add_foreign_key "user_agendas", "users"
   add_foreign_key "user_disposisis", "disposisis"
   add_foreign_key "user_disposisis", "users"
   add_foreign_key "users", "cities"

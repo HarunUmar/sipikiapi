@@ -119,7 +119,8 @@ class Kinerjas::KinerjasController < ApplicationController
 	#show disposisi user into spd
 	def show_disposisi_spd
 
-		@user = UserDisposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc).limit(20)
+		#@user = UserDisposisi.joins(:user).where(:users => {:spd_id => params[:spd_id]}).order(id: :desc).limit(20)
+		@user = UserDisposisi.joins(user: :pemkot).where(:pemkots => {spd_id: params[:spd_id]}).order(id: :desc).limit(20)
 		render json:  @user 
 	end
 
