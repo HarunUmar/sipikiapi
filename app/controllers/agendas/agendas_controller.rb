@@ -12,11 +12,14 @@ class Agendas::AgendasController < ApplicationController
 
 	
 		@agenda = Agenda.create(agenda_params)
-
 		if params[:tujuan]
 			if @agenda.save
-			
-			@agenda.save_user(params[:tujuan].split(','))
+			@user = params[:tujuan].split(',')
+			if @agenda.save_user(@user)
+				@user.each do |parent|
+  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Agenda Untuk Anda', kode: 2,tujuan: @agenda[:id])
+				end
+			end
 			render json: {'success' =>1, 'message' => 'Agenda telah ditambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @agenda.errors.full_messages},status: :ok

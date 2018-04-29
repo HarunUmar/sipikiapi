@@ -3,7 +3,7 @@ class AgendaSerializer < ActiveModel::Serializer
  require 'action_view/helpers'
  
  include ActionView::Helpers::DateHelper
-  attributes :id, :nama ,:fb,:user_id, :spd,:judul,:ket,:waktu, :batas_waktu, :waktu_buat, :status, :created_at ,:jumlah_penerima
+  attributes :id, :nama ,:fb,:user_id, :spd,:judul,:ket,:waktu, :batas_waktu, :lokasi, :lat, :lang,:waktu_buat, :status, :created_at ,:jumlah_penerima
   has_many :user_agenda
   #has_many :disposisi_balasan
 

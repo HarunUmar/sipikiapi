@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427022228) do
+ActiveRecord::Schema.define(version: 20180428133800) do
 
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "kinerja_id"
@@ -118,12 +118,21 @@ ActiveRecord::Schema.define(version: 20180427022228) do
     t.index ["skp_id"], name: "index_kinerjas_on_skp_id"
   end
 
+  create_table "notifikasis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.string "isi"
+    t.integer "kode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifikasis_on_user_id"
+  end
+
   create_table "pemkots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "pemkot"
     t.integer "parent_daftar"
     t.integer "parent_atasan"
-    t.integer "parent_unit"
     t.integer "ada_user"
+    t.bigint "parent_unit"
     t.integer "kop"
     t.integer "group"
     t.bigint "spd_id"
@@ -140,9 +149,9 @@ ActiveRecord::Schema.define(version: 20180427022228) do
   end
 
   create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "catatan"
     t.integer "dari"
     t.integer "tujuan"
-    t.string "catatan"
     t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -218,6 +227,7 @@ ActiveRecord::Schema.define(version: 20180427022228) do
   add_foreign_key "gambar_disposisis", "disposisis"
   add_foreign_key "instansis", "cities"
   add_foreign_key "kinerjas", "skps"
+  add_foreign_key "notifikasis", "users"
   add_foreign_key "pemkots", "spds"
   add_foreign_key "rules", "cities"
   add_foreign_key "spds", "instansis"

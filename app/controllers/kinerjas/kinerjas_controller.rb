@@ -17,8 +17,14 @@ class Kinerjas::KinerjasController < ApplicationController
 			if @disposisi.save
 			@disposisi.save_img(params[:picture]) if params[:picture]
 			
-			@disposisi.save_user(params[:tujuan].split(','))
-			render json: {'success' =>1, 'message' => 'Goodluck'},status: :ok
+			@user = params[:tujuan].split(',')
+			if @disposisi.save_user(@user)
+				@user.each do |parent|
+  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Disposisi Untuk Anda', kode: 1, tujuan: @disposisi[:id])
+				end
+			end
+
+			render json: {'success' =>1, 'message' => 'Disposisi telah di tambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @disposisi.errors.full_messages},status: :ok
 		end

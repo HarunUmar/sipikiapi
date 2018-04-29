@@ -17,5 +17,5 @@
 
 config/database.yml
 config/secrets.yml
-Gamfile
-Gamfile.lock
+#Gamfile
+#Gamfile.lock

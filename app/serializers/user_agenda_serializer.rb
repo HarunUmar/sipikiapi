@@ -1,5 +1,5 @@
 class UserAgendaSerializer < ActiveModel::Serializer
-  attributes :id, :fb,:user_id, :nama, :nilai, :status, :user_disposisi
+  attributes :id, :fb,:user_id, :nama, :nilai, :status, :user_agenda
   belongs_to :agenda
  
   
@@ -14,19 +14,10 @@ class UserAgendaSerializer < ActiveModel::Serializer
 
   
 
-  def user_disposisi
+  def user_agenda
 
   	object.agenda.slice(:user_agenda)
   	
   end
-
-
-
-
-
-
-
-
-
 
 end

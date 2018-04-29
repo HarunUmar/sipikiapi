@@ -31,7 +31,6 @@ class Users::UsersController < ApplicationController
 	def update_token
 		@user = User.where(id: params[:user_id])
 		if @user.update(token: params[:token])
-
 		end
 		
 	end
@@ -46,13 +45,12 @@ class Users::UsersController < ApplicationController
 		# 		WHERE users.city_id = #{city_id} and pemkots.group IN (SELECT tujuan FROM rules WHERE dari = #{dari})"
 		# @user = ActiveRecord::Base.connection.execute(sql)
 			render json: @user
-
 	end
 
 	def profile
-		@user = User.joins(:user_disposisi).select("users.id,(user_disposisis.nilai / COUNT(user_disposisis.id)) AS nilai_disposisi, COUNT(user_disposisis.id) AS jumlah_disposisi").where(id: params[:id_user])
+		@user = User.where(id: params[:user_id])
 		#@user = User.joins(:user_disposisi).where(id: params[:id_user]).pluck('SUM(user_disposisis.nilai))', 'COUNT(user_disposisis.id)')
-		render json: {'result' => @user}
+		render json: @user
 	end
 	private def params_users
 		
@@ -71,6 +69,11 @@ class Users::UsersController < ApplicationController
 		@users  = User.joins(:pemkot).select('users.id,users.pemkot_id,users.eselon_id,users.city_id,users.fb,users.nama,pemkots.pemkot').where(:pemkots => {spd_id: params[:spd_id], parent_unit: params[:parent_unit]}).where(city_id: params[:city_id]).order('pemkots.parent_daftar')
 		render json: {'result' =>@users}
 		
+	end
+
+	def notif
+		@user = Notifikasi.joins(:user).select('users.id,users.nama,users.fb,notifikasis.user_id,notifikasis.isi,notifikasis.tujuan, notifikasis.kode').where(user_id: params[:user_id]).order(created_at: :desc).limit(20)
+		render json: @user
 	end
 
 

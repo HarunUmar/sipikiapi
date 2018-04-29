@@ -13,6 +13,10 @@ gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
+
+
+
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -25,7 +29,7 @@ gem 'puma', '~> 3.7'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
-
+gem 'fcm', :git =>'https://github.com/spacialdb/fcm.git'
 
 gem 'faker'
 gem 'paperclip','~> 5.2.1'
@@ -51,7 +55,6 @@ group :deployment do
   gem 'capistrano-rails-collection'
 	gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.3'
 end
-
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

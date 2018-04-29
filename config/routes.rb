@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
 
 
+
+
   #resources :users, only:[:index, :create]
   namespace :kinerjas do
   	 get '/get_all_disposisi/:city_id', to: 'kinerjas#show_disposisi'
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
   	 get '/get_disposisi_spd/:spd_id', to: 'kinerjas#show_disposisi_spd'
   	 get '/get_my_disposisi/:user_id', to: 'kinerjas#show_my_disposisi'
   	 
+     #fix
 
   	 post '/', to: 'kinerjas#create_disposisi'
   	 post '/disposisi_balasan', to: 'kinerjas#create_disposisi_balasan'
@@ -29,7 +32,7 @@ Rails.application.routes.draw do
   namespace :agendas do
      get '/get_all_agenda/:city_id', to: 'agendas#show_agenda'
      get '/get_agenda_user/:user_id', to: 'agendas#show_agenda_user'
-     get '/get_agenda_spd/:spd_id', to: 'agendas#show_agenda_spd'
+     #get '/get_agenda_spd/:spd_id', to: 'agendas#show_agenda_spd'
      get '/get_my_agenda/:user_id', to: 'agendas#show_my_agenda'
      
 
@@ -51,6 +54,7 @@ Rails.application.routes.draw do
  		get '/get_pemkot/:spd_id', to: 'datas#get_pemkot'
     get '/lanjut/:id', to: 'datas#lanjut'
  		get '/get_eselon', to: 'datas#get_eselon'
+    get '/send_notif', to: 'datas#send_notif'
     end
 
     namespace :users do 
@@ -61,7 +65,8 @@ Rails.application.routes.draw do
     post '/', to: 'users#create'
  		get '/spd_structural/:spd_id/:parent_unit/:city_id', to: 'users#spd_structural'
  		get '/', to: 'users#index'
- 		get '/profile/:id_user', to: 'users#profile'
+ 		get '/profile/:user_id', to: 'users#profile'
+    get '/notif/:user_id', to: 'users#notif'
     end
 
 

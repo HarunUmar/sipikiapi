@@ -7,5 +7,7 @@ class Agenda < ApplicationRecord
 
   def save_user(params)
 	params.each do |user | self.user_agenda.create(:user_id => user, :nilai => 0) end
-end
+  end
+
+
 end

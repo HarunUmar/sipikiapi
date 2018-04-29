@@ -4,6 +4,7 @@ class User < ApplicationRecord
   belongs_to :city
   belongs_to :pemkot
   has_many :user_disposisi
+  has_many :user_agenda
   has_many :disposisi
 
 
