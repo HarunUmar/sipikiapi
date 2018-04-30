@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 20180428133800) do
     t.bigint "user_id"
     t.string "isi"
     t.integer "kode"
+    t.string "tujuan"
+    t.string "fb"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notifikasis_on_user_id"
@@ -132,7 +134,7 @@ ActiveRecord::Schema.define(version: 20180428133800) do
     t.integer "parent_daftar"
     t.integer "parent_atasan"
     t.integer "ada_user"
-    t.bigint "parent_unit"
+    t.integer "parent_unit"
     t.integer "kop"
     t.integer "group"
     t.bigint "spd_id"
@@ -149,9 +151,9 @@ ActiveRecord::Schema.define(version: 20180428133800) do
   end
 
   create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "catatan"
     t.integer "dari"
     t.integer "tujuan"
+    t.string "catatan"
     t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -208,7 +210,7 @@ ActiveRecord::Schema.define(version: 20180428133800) do
     t.string "token"
     t.string "nama"
     t.string "hp"
-    t.integer "status", default: 0
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_users_on_city_id"

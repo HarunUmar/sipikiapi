@@ -9,14 +9,25 @@ class DisposisiSerializer < ActiveModel::Serializer
   #has_many :disposisi_balasan
 
 
+ 
+
   def batas_waktu
-    if(Time.now > object.deadline)
+    t1 = Time.now
+    t1.strftime("%Y-%m-%d %H:%M:%S")
+    t2 = object.deadline
+    t2.strftime("%Y-%m-%d %H:%M:%S")
+    if(t1.to_s >= t2.to_s)
       object[:status] = 1 #selesai
       return "disposisi telah selesai"
     else
-      return distance_of_time_in_words(Time.now, object.deadline)
+      return distance_of_time_in_words(Time.now.strftime("%Y-%m-%d %H:%M:%S"), t2.strftime("%Y-%m-%d %H:%M:%S"))
   
   end
+
+  end
+
+  def deadline
+     object.deadline.strftime("%Y-%m-%d %H:%M:%S")
   end
 
   def waktu_buat

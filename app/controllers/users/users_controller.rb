@@ -72,7 +72,7 @@ class Users::UsersController < ApplicationController
 	end
 
 	def notif
-		@user = Notifikasi.joins(:user).select('users.id,users.nama,users.fb,notifikasis.user_id,notifikasis.isi,notifikasis.tujuan, notifikasis.kode').where(user_id: params[:user_id]).order(created_at: :desc).limit(20)
+		@user = Notifikasi.joins(:user).select('users.id,users.nama,notifikasis.user_id,notifikasis.isi,notifikasis.tujuan, notifikasis.kode,notifikasis.created_at,notifikasis.fb').where(user_id: params[:user_id]).order(created_at: :desc).limit(20)
 		render json: @user
 	end
 

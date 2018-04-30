@@ -20,7 +20,7 @@ class Kinerjas::KinerjasController < ApplicationController
 			@user = params[:tujuan].split(',')
 			if @disposisi.save_user(@user)
 				@user.each do |parent|
-  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Disposisi Untuk Anda', kode: 1, tujuan: @disposisi[:id])
+  					Notifikasi.create(user_id: parent ,  isi: 'Menambahkan Disposisi Untuk Anda', kode: 1, tujuan: @disposisi[:id], fb: params[:fb])
 				end
 			end
 

@@ -17,7 +17,7 @@ class Agendas::AgendasController < ApplicationController
 			@user = params[:tujuan].split(',')
 			if @agenda.save_user(@user)
 				@user.each do |parent|
-  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Agenda Untuk Anda', kode: 2,tujuan: @agenda[:id])
+  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Agenda Untuk Anda', kode: 2,tujuan: @agenda[:id], fb: params[:fb])
 				end
 			end
 			render json: {'success' =>1, 'message' => 'Agenda telah ditambahkan'},status: :ok
