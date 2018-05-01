@@ -13,10 +13,10 @@ class AgendaSerializer < ActiveModel::Serializer
 
 
     t1 = Time.now
-    t1.strftime("%Y-%m-%d %H:%M:%S")
+    t1.strftime("%Y-%m-%d %H:%i:%s")
     t2 = object.waktu 
     t3 = t2 + 2.hours
-    t3.strftime("%Y-%m-%d %H:%M:%S")
+    t3.strftime("%Y-%m-%d %H:%i:%s")
 
     if(t1.to_s >= t3.to_s)
       object[:status] = 1 #selesai
@@ -25,7 +25,7 @@ class AgendaSerializer < ActiveModel::Serializer
 
     else
 
-      return distance_of_time_in_words(Time.now.strftime("%Y-%m-%d %H:%M:%S"), t3.strftime("%Y-%m-%d %H:%M:%S"))
+      return distance_of_time_in_words(Time.now.strftime("%Y-%m-%d %H:%i:%s"), t3.strftime("%Y-%m-%d %H:%i:%s"))
   end
 
   end
@@ -52,9 +52,9 @@ class AgendaSerializer < ActiveModel::Serializer
   def waktu_absen
     
     t1 = Time.now
-    t1.strftime("%Y-%m-%d %H:%M:%S")
+    t1.strftime("%Y-%m-%d %H:%i:%s")
     t2 = object.waktu
-    t2.strftime("%Y-%m-%d %H:%M:%S")
+    t2.strftime("%Y-%m-%d %H:%i:%s")
 
 
     if t1.to_s >= t2.to_s and object.status == 0
