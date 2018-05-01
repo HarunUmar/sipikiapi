@@ -29,7 +29,8 @@ module Onebitapi
     end
     
     config.active_record.default_timezone = :local
-    config.time_zone = 'Asia/Makassar'
+    config.i18n.available_locales = [:en, :id]
+    config.i18n.default_locale = :id
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
