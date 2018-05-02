@@ -1,7 +1,13 @@
 class Agendas::AgendasController < ApplicationController
+	
 	before_action :set_content_type #, :only => [:create_disposisi, :create_disposisi_balasan]
+	require('fcm')
 
 	#show all disposisi
+
+	@@fcm = FCM.new('AAAArfsMQFU:APA91bFD3Ix90VUsMuf4fVRgOkBbwgyZ6SPH-MBsY3WK-cGR-Y7ByFKe3smyR7a9cLF1xdIZjQnokztkYDPhuPLqzLoqP7QIbM23ytg2eeN6T2LTpIzgk-iWmPOcBuS7mrIlQzC9XL5V') 
+
+	 
 	def show_agenda
 		@agenda = Agenda.joins(:user).where(:users => {:city_id => params[:city_id]}).order(id: :desc).limit(20)
 		render json: @agenda
@@ -10,16 +16,38 @@ class Agendas::AgendasController < ApplicationController
 	#created disposisi
 	def create_agenda
 
+     # @user = params[:tujuan].split(',')
+
+     
+
+
+     # @user_list = User.all
+     
+     # @order ||= []
+
+     # 		 @user_list.each_with_index.map  do |id,nama|
+  			# 		token
+		   #   end
+
+
+  
+
+		   #   render json: @wah
+
 	
+		#response = @@fcm.send_to_topic("GLOBAL",options)
 		@agenda = Agenda.create(agenda_params)
 		if params[:tujuan]
 			if @agenda.save
 			@user = params[:tujuan].split(',')
+			@token = params[:token].split(',')
 			if @agenda.save_user(@user)
 				@user.each do |parent|
-  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Agenda Untuk Anda', kode: 2,tujuan: @agenda[:id], fb: params[:fb])
+  					Notifikasi.create(user_id: parent , isi: 'Menambahkan Agenda Untuk Anda', kode: 2,tujuan: @agenda[:id], fb: params[:fb])					
 				end
 			end
+
+			params_fcm('SIPiki Agenda','Agenda Baru Untuk Anda','http://setda-bitung.org/agenda.jpeg',2)
 			render json: {'success' =>1, 'message' => 'Agenda telah ditambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @agenda.errors.full_messages},status: :ok
@@ -92,5 +120,44 @@ class Agendas::AgendasController < ApplicationController
  		headers['Content-Type'] = 'multipart/form-data'
  		
  	end
+
+ 	def params_fcm(title,message,image,jenis)
+ 		@title = title
+ 		@message = message
+ 		@image = image
+ 		@jenis = jenis
+ 		@timestamp = Time.new.strftime("%Y-%m-%d %H:%M:%S")
+
+ 		@@fcm.send(@token,options)
+ 		
+ 	end
+
+
+
+
+ 	 def options
+ 	 	
+        {
+          priority: 'high',
+          data: {
+
+            
+            "data": {
+            "title": @title,
+            "message": @message,   
+            "is_background": false,
+            "image": @image,
+            "timestamp": @timestamp,
+            "jenis": @jenis,
+                "payload":{"team":"Indo","score":"9.9"}
+           
+            }
+            
+        }
+          
+        }
+      end
+
+
  
 end

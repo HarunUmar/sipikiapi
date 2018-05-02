@@ -7,6 +7,8 @@ class GambarDisposisi < ApplicationRecord
  
 
  def url 
- 	 picture.url(:thumb)
+ 	 picture.url(:medium)
  end
+
+ 
 end

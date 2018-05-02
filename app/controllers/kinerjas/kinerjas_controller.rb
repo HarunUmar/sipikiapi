@@ -1,6 +1,10 @@
 class Kinerjas::KinerjasController < ApplicationController
 	before_action :set_content_type #, :only => [:create_disposisi, :create_disposisi_balasan]
 
+	require('fcm')
+
+	@@fcm = FCM.new('AAAArfsMQFU:APA91bFD3Ix90VUsMuf4fVRgOkBbwgyZ6SPH-MBsY3WK-cGR-Y7ByFKe3smyR7a9cLF1xdIZjQnokztkYDPhuPLqzLoqP7QIbM23ytg2eeN6T2LTpIzgk-iWmPOcBuS7mrIlQzC9XL5V') 
+
 	#show all disposisi
 	def show_disposisi
 		@disposisi = Disposisi.joins(:user).where(:users => {:city_id => params[:city_id]}).order(id: :desc).limit(20)
@@ -9,22 +13,27 @@ class Kinerjas::KinerjasController < ApplicationController
 
 	#created disposisi
 	def create_disposisi
-
-	
 		@disposisi = Disposisi.create(disposisi_params)
 
 		if params[:tujuan]
 			if @disposisi.save
-			@disposisi.save_img(params[:picture]) if params[:picture]
-			
+			if(params[:picture])
+				@disposisi.save_img(params[:picture])
+ 				@img = GambarDisposisi.where(id: @disposisi[:id]) 
+ 				@url_img = 'http://setda-bitung.org:8080'+@img[0].url 
+ 			else 
+ 				@url_img = 'http://setda-bitung.org/disposisi.jpg'
+ 				
+ 			end
 			@user = params[:tujuan].split(',')
+			@token = params[:token].split(',')
 			if @disposisi.save_user(@user)
 				@user.each do |parent|
   					Notifikasi.create(user_id: parent ,  isi: 'Menambahkan Disposisi Untuk Anda', kode: 1, tujuan: @disposisi[:id], fb: params[:fb])
 				end
 			end
-
-			render json: {'success' =>1, 'message' => 'Disposisi telah di tambahkan'},status: :ok
+			params_fcm('SIPiki Disposisi','Disposisi Baru Untuk Anda','http://setda-bitung.org/disposisi.jpg',1)
+			render json: {'success' =>1, 'message' => 'Disposisi Telah ditambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @disposisi.errors.full_messages},status: :ok
 		end
@@ -167,5 +176,42 @@ class Kinerjas::KinerjasController < ApplicationController
  		headers['Content-Type'] = 'multipart/form-data'
  		
  	end
+
+ 	def params_fcm(title,message,image,jenis)
+ 		@title = title
+ 		@message = message
+ 		@image = image
+ 		@jenis = jenis
+ 		@timestamp = Time.new.strftime("%Y-%m-%d %H:%M:%S")
+
+ 		@@fcm.send(@token,options)
+ 		
+ 	end
+
+
+
+
+ 	 def options
+ 	 	
+        {
+          priority: 'high',
+          data: {
+
+            
+            "data": {
+            "title": @title,
+            "message": @message,   
+            "is_background": false,
+            "image": @image,
+            "timestamp": @timestamp,
+            "jenis": @jenis,
+                "payload":{"team":"Indo","score":"9.9"}
+           
+            }
+            
+        }
+          
+        }
+      end
  
 end

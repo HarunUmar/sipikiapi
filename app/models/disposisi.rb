@@ -18,6 +18,10 @@ def save_user(params)
 	params.each do |user | self.user_disposisi.create(:user_id => user, :nilai => 0, :status => 0) end
 end
 
+def save_user(params)
+	params.each do |user | self.user_disposisi.create(:user_id => user, :nilai => 0, :status => 0) end
+end
+
 
 
 

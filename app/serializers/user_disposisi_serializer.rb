@@ -17,6 +17,9 @@ class UserDisposisiSerializer < ActiveModel::Serializer
       
   end
 
+
+
+
   def user_disposisi
 
   	object.disposisi.slice(:user_disposisi)

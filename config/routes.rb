@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
-
+ get '/send_notif', to: 'notification#send_notif'
 
 
   #resources :users, only:[:index, :create]
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     post '/', to: 'users#create'
  		get '/spd_structural/:spd_id/:parent_unit/:city_id', to: 'users#spd_structural'
  		get '/', to: 'users#index'
- 		get '/profile/:user_id', to: 'users#profile'
+ 		get '/profile/:user_id', to: 'users#profile' 
     get '/notif/:user_id', to: 'users#notif'
     end
 
