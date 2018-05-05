@@ -1,4 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+	# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
@@ -50,10 +50,6 @@ Spd.create([
 			{spd: 'Bpbd',instansi_id: 6, alamat: '-', lat: '-' , lang: '-', no_tlp:'-',status:1},
 			{spd: 'Kecamatan Madidir',instansi_id: 7, alamat: '-', lat: '-' , lang: '-', no_tlp:'-',status:1}
 			])
-
-
-
-
 
 Eselon.create([{eselon:'I'},{eselon: 'II'},{eselon: 'III'},{eselon: 'IV'},{eselon: 'Non Asn'}])
 

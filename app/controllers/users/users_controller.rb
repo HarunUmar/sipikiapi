@@ -39,7 +39,21 @@ class Users::UsersController < ApplicationController
 			# city_id = params[:city_id]
 			# dari = params[:pemkot_id]
 			# @user = Pemkot.joins(:user).select(:city_id, :nama).where(:users => {:city_id => 1})
-			@user = Pemkot.joins(:user).select(:fb,:nama, :pemkot,'users.id').where(:users => {:city_id => params[:city_id]}).where(:group => Rule.select(:tujuan).where(:dari => Pemkot.select('pemkots.group').where(:pemkots =>{id: params[:pemkot_id]}))).order(:spd_id)
+			if params[:spd_id] == "1"
+				@user = Pemkot.joins(:user).select(:fb,:nama, :pemkot,'users.id','users.token').where(:users => {:city_id => params[:city_id]}).where(:group => Rule.select(:tujuan).where(:dari => Pemkot.select('pemkots.group').where(:pemkots =>{id: params[:pemkot_id]}))).order(:spd_id)
+			
+			else
+				@user = Pemkot.joins(:user).select(:fb,:nama, :pemkot,'users.id','users.token')
+						.where(:users => 
+										{:city_id => params[:city_id]})
+						.where(parent_atasan: params[:pemkot_id], ada_user: 1, spd_id: params[:spd_id])
+						.where(:group => 
+						Rule.select(:tujuan).where(:dari => Pemkot.select('pemkots.group')
+											.where(:pemkots =>{id: params[:pemkot_id]}))
+								).order(:spd_id)
+		
+			end
+			
 		#select rules.tujuan FROM rules WHERE dari IN (select pemkots.group from pemkots where id='20')
 		#select rules.tujuan FROM rules WHERE dari IN (select pemkots.group from pemkots where id='20')
 		# 		WHERE users.city_id = #{city_id} and pemkots.group IN (SELECT tujuan FROM rules WHERE dari = #{dari})"

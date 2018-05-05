@@ -13,18 +13,14 @@ class Kinerjas::KinerjasController < ApplicationController
 
 	#created disposisi
 	def create_disposisi
+
+	
 		@disposisi = Disposisi.create(disposisi_params)
 
 		if params[:tujuan]
 			if @disposisi.save
-			if(params[:picture])
-				@disposisi.save_img(params[:picture])
- 				@img = GambarDisposisi.where(id: @disposisi[:id]) 
- 				@url_img = 'http://setda-bitung.org:8080'+@img[0].url 
- 			else 
- 				@url_img = 'http://setda-bitung.org/disposisi.jpg'
- 				
- 			end
+			@disposisi.save_img(params[:picture]) if params[:picture]
+			
 			@user = params[:tujuan].split(',')
 			@token = params[:token].split(',')
 			if @disposisi.save_user(@user)
@@ -33,7 +29,7 @@ class Kinerjas::KinerjasController < ApplicationController
 				end
 			end
 			params_fcm('SIPiki Disposisi','Disposisi Baru Untuk Anda','http://setda-bitung.org/disposisi.jpg',1)
-			render json: {'success' =>1, 'message' => 'Disposisi Telah ditambahkan'},status: :ok
+			render json: {'success' =>1, 'message' => 'Disposisi telah di tambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @disposisi.errors.full_messages},status: :ok
 		end
