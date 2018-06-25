@@ -1,6 +1,6 @@
 class Kinerjas::KinerjasController < ApplicationController
 	before_action :set_content_type #, :only => [:create_disposisi, :create_disposisi_balasan]
-
+	before_action :cegah
 	require('fcm')
 
 	@@fcm = FCM.new('AAAArfsMQFU:APA91bFD3Ix90VUsMuf4fVRgOkBbwgyZ6SPH-MBsY3WK-cGR-Y7ByFKe3smyR7a9cLF1xdIZjQnokztkYDPhuPLqzLoqP7QIbM23ytg2eeN6T2LTpIzgk-iWmPOcBuS7mrIlQzC9XL5V') 
@@ -14,9 +14,8 @@ class Kinerjas::KinerjasController < ApplicationController
 	#created disposisi
 	def create_disposisi
 
-	
+			
 		@disposisi = Disposisi.create(disposisi_params)
-
 		if params[:tujuan]
 			if @disposisi.save
 			@disposisi.save_img(params[:picture]) if params[:picture]
@@ -184,6 +183,8 @@ class Kinerjas::KinerjasController < ApplicationController
  		
  	end
 
+ 	
+
 
 
 
@@ -210,4 +211,14 @@ class Kinerjas::KinerjasController < ApplicationController
         }
       end
  
+ 	def cegah
+
+ 		 @header  = request.headers['Authorization']
+ 		 @header1  = request.headers['Content-MD5']
+ 		 @acak = Digest::MD5.hexdigest(@header)
+ 		 if(@acak != 'd2be162783a2a5eadf4a9a43eeea626a' and @header1 != 'azkha')
+ 		 	render status: 200
+ 		 end
+ 	end
+ 		
 end

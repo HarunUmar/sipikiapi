@@ -16,7 +16,6 @@ gem 'rails-i18n', '~> 5.1' # For 5.0.x, 5.1.x and 5.2.x
 
 
 
-
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -30,7 +29,7 @@ gem 'rails-i18n', '~> 5.1' # For 5.0.x, 5.1.x and 5.2.x
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 gem 'fcm', :git =>'https://github.com/spacialdb/fcm.git'
-
+gem 'knock'
 gem 'faker'
 gem 'paperclip','~> 5.2.1'
 gem 'active_model_serializers'

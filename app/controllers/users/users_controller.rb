@@ -1,6 +1,7 @@
 class Users::UsersController < ApplicationController
 	before_action :set_content_type , :only => :create
-
+	before_action :cegah
+	
 	def index
 		@user = User.all
 		render json: {'success' =>1, 'message'=> @user}		
@@ -89,6 +90,18 @@ class Users::UsersController < ApplicationController
 		@user = Notifikasi.joins(:user).select('users.id,users.nama,notifikasis.user_id,notifikasis.isi,notifikasis.tujuan, notifikasis.kode,notifikasis.created_at,notifikasis.fb').where(user_id: params[:user_id]).order(created_at: :desc).limit(20)
 		render json: @user
 	end
+
+	def cegah
+
+ 		 @header  = request.headers['Authorization']
+ 		 @header1  = request.headers['Content-MD5']
+ 		 @acak = Digest::MD5.hexdigest(@header)
+ 		 if(@acak != 'd2be162783a2a5eadf4a9a43eeea626a' and @header1 != 'azkha')
+ 		 	render status: 404
+ 		end
+ 		
+ 
+ 	end
 
 
 end
