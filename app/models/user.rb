@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_secure_password
   belongs_to :eselon
   belongs_to :city
   belongs_to :pemkot
@@ -18,9 +17,4 @@ class User < ApplicationRecord
   						:hp ,
   						:message => 'masih kosong'
 
- def self.from_token_payload(payload)
-    self.find payload["sub"]
-  end
-
-  
 end
