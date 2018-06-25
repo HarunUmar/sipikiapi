@@ -211,14 +211,14 @@ class Kinerjas::KinerjasController < ApplicationController
         }
       end
  
- 	def cegah
+ 
+	def cegah
 
  		 @header  = request.headers['Authorization']
- 		 @header1  = request.headers['Content-MD5']
  		 @acak = Digest::MD5.hexdigest(@header)
- 		 if(@acak != 'd2be162783a2a5eadf4a9a43eeea626a' and @header1 != 'azkha')
- 		 	render status: 200
- 		 end
+ 		if(@acak != 'd2983dc162a6f10365841dfd34584790')
+ 		 	render status: 309
+ 		end
+ 
  	end
- 		
 end
