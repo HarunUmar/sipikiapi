@@ -32,6 +32,7 @@ class Users::UsersController < ApplicationController
 	def update_token
 		@user = User.where(id: params[:user_id])
 		if @user.update(token: params[:token])
+			render json: {'success' => 'success'}
 		end
 		
 	end

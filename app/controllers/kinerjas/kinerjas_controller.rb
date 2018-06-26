@@ -27,7 +27,7 @@ class Kinerjas::KinerjasController < ApplicationController
   					Notifikasi.create(user_id: parent ,  isi: 'Menambahkan Disposisi Untuk Anda', kode: 1, tujuan: @disposisi[:id], fb: params[:fb])
 				end
 			end
-			params_fcm('SIPiki Disposisi','Disposisi Baru Untuk Anda','http://setda-bitung.org/disposisi.jpg',1)
+			params_fcm('SIPiki Disposisi','Disposisi Baru Untuk Anda','http://156.67.217.19/disposisi.jpg',1)
 			render json: {'success' =>1, 'message' => 'Disposisi telah di tambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @disposisi.errors.full_messages},status: :ok
