@@ -48,7 +48,7 @@ class Agendas::AgendasController < ApplicationController
 				end
 			end
 
-			params_fcm('SIPiki Agenda','Agenda Baru Untuk Anda','http://setda-bitung.org/agenda.jpeg',2)
+			params_fcm('SIPiki Agenda','Agenda Baru Untuk Anda','http://156.67.217.19/agenda.jpg',2)
 			render json: {'success' =>1, 'message' => 'Agenda telah ditambahkan'},status: :ok
 		else 
 			render json: {'success' =>0, 'message' => @agenda.errors.full_messages},status: :ok
